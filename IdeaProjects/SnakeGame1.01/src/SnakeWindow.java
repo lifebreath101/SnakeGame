@@ -1,52 +1,62 @@
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.font.TextLayout;
 
-class Test extends JPanel {
+
+class Test extends JPanel {    //JPanel is the canvas
 
     static JFrame testFrame;
 
-    //static JPanel testFramePanel;  //I believe canvas works in the same way panel does
+    static JPanel testPanel;
 
-    //static Graphics2D testG2d;  //not sure if this is needed
+    static JPanel[] shapes = new JPanel[5];
 
-    public void paint(Graphics g) {      //See notes
 
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLUE);
-        g2d.fillOval(5,10,60,60);
+    public void paint(Graphics g) {
 
-        Graphics2D g2d2 = (Graphics2D) g;
-        g2d2.setColor(Color.RED);
-        g2d2.fillOval(80, 10, 60, 60);
+        Graphics2D g2d = (Graphics2D) g; //this is a paintbrush
 
-        g2d.drawString("It works!!!", 20, 100);
+
+        //g2d.setColor(Color.BLUE);
+        //g2d.fillOval(5,10,60,60);
+
+        //Graphics2D g2d2 = (Graphics2D) g;
+        //g2d2.setColor(Color.RED);
+        //g2d2.fillOval(80, 10, 60, 60);
+
+        //g2d.drawString("It works!!!", 20, 100);
 
     }
 
-    //static JFrame testFrameText;   //For text??
-
-    //static JButton testFrameButton;  //adds a button for a frame
 
 
     public static void main(String[] args) {
 
         testFrame = new JFrame("will this frame work?");
 
-        //testFramePanel = new JPanel();  //I believe canvas works in the same way panel does
+        testPanel = new JPanel();
 
-        //testFrameButton = new JButton("I guess it will!");  //this button connects to panel
-        //testFramePanel.add(testFrameButton);   //this is that action
 
-        //testFrame.getContentPane().add(testFrameText);   //For text??
+        //testFrame.add(new Test());   //See notes
 
-        //testFramePanel.setBackground(Color.white);
+        testFrame.add(testPanel);
 
-        //testFrame.add(testFramePanel);  //This adds panel to frame
+        for(int i = 0; i < 4; i++) {
 
-        testFrame.add(new Test());   //See notes
+            shapes[i].setBounds(10, 10, 30, 30);
+            shapes[i].setBackground(Color.blue);
 
-        testFrame.setSize(700, 700);  //With canvas you can resize the canvas and "fit" it to the frame
+            if(i > 0) {
+                shapes[i].setBounds(shapes[i-1].getX() + 10, shapes[i-1].getY(), 30, 30);
+            }
+        }
+
+        for(int i = 0; i < 4; i++) {
+
+            testPanel.add(shapes[i]);
+        }
+
+        testFrame.setSize(700, 700);
 
         testFrame.setVisible(true);
 
@@ -61,7 +71,8 @@ class Test extends JPanel {
 
 //In this example I created two graphic objects and a text object and added them to the canvas
 
-//TODO: make "mock snake", create an array of rects and have them move across the screen
+//TODO: make "mock snake", create an array of rects and have them move across the screen.
+// May need to redesign, with paint method I cannot locate the position of a object I've created.
 
 
 //Notes:
